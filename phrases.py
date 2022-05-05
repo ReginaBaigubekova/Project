@@ -23,11 +23,11 @@ class Phrases(tk.Frame):
         tk.Frame.__init__(self, parent, *args, **kwargs)
         self.parent = parent
         self.controller = controller
-        self.txt_edit = tk.Text(self)
-        self.txt_edit.grid(row=0, column=1, sticky='nsew')
+        self.listbox = tk.Listbox(self)
+        self.listbox.grid(row=0, column=1, sticky='nsew')
         self.phrase_list = PhraseList()
         self.phrase_list.load()
-        self.txt_edit.insert(tk.END, '\n'.join(self.phrase_list.phrases))
+        self.listbox.insert(tk.END, *self.phrase_list.phrases)
 
         self.fr_buttons = tk.Frame(self)
         self.fr_buttons.grid(row=0, column=0, sticky='ns')
@@ -37,8 +37,8 @@ class Phrases(tk.Frame):
 
     def add_phrase(self, phrase):
         self.phrase_list.phrases.append(phrase)
-        self.txt_edit.delete('1.0', tk.END)
-        self.txt_edit.insert(tk.END, '\n'.join(self.phrase_list.phrases))
+        self.listbox.delete(0, tk.END)
+        self.listbox.insert(tk.END, *self.phrase_list.phrases)
 
     def save_phrases(self):
         self.phrase_list.dump()
