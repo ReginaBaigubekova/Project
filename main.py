@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import colorchooser
 from tkinter.filedialog import askopenfilename
+from tkinter import messagebox
 
 
 def open_file():
@@ -21,8 +22,13 @@ def rename_file():
     filepath = askopenfilename(
         filetypes=[("Текстовые файлы", "*.txt"), ("Все файлы", "*.*")]
     )
-    with open(filepath, "r", encoding='utf-8') as input_file:
-        os.rename(input_file.name, filepath)
+    file = open(filepath)
+    os.rename(file.name, "C:\\Users\\Regina\\Documents\\УНИВЕР\\test.txt")
+
+
+def on_closing():
+    if messagebox.askokcancel("Выход из приложения", "Хотите выйти из приложения?"):
+        window.destroy()
 
 
 def choose_color():
@@ -44,6 +50,9 @@ def day_color():
 
 window = tk.Tk()
 window.title("Reader")
+window.protocol("WM_DELETE_WINDOW", on_closing)
+
+window.iconbitmap("book-g6a15db4e8_640.ico")
 
 window.rowconfigure(0, minsize=800, weight=1)
 window.columnconfigure(1, minsize=800, weight=1)
